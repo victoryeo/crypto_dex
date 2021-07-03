@@ -46,6 +46,21 @@ const deploy = async () => {
     let bala = await tokenInst.methods.balanceOf(accounts[0]).call()
     console.log(`balance ${bala.toString()}`)
 
+    swapInst = await new web3Inst.eth.Contract(
+        swapContractABI.abi
+    )  
+    .deploy({ data: swapContractABI.bytecode, arguments: [tokenInst._address] })
+    .send({
+        from: accounts[0],
+        gas: 1500000,
+        gasPrice: '0',
+    })
+    console.log('Contract deployed to ', swapInst._address)
+    let retVal = await tokenInst.methods.transfer(swapInst._address, 
+        `${bala.toString()}`)
+        .send({from: accounts[0]})
+    console.log(retVal)
+
    /* let tokenInst = await tokenContract.deployed(accounts[0])
     console.log('Contract deployed to ', tokenInst.address)
     let bala = await tokenInst.balanceOf(accounts[0])
