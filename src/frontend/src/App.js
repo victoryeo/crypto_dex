@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, { Component } from 'react'
 import './App.css';
+import Main from './Main'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      account: '',
+      token: {},
+      ethSwap: {},
+      ethBalance: '0',
+      tokenBalance: '0',
+      loading: true
+    }
+  }
+
+  render(){
+    let content
+    if(this.state.loading) {
+      content = <p id="loader" className="text-center">Loading...</p>
+    } else {
+      content = <Main
+        ethBalance={this.state.ethBalance}
+        tokenBalance={this.state.tokenBalance}
+        buyTokens={this.buyTokens}
+        sellTokens={this.sellTokens}
+      />
+    }
+    return (
+      <div className="App">
+        {content}
+      </div>
+    );
+  }
 }
 
 export default App;
