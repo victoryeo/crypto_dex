@@ -11,5 +11,7 @@ module.exports = {
       port: 9545,
       network_id: "*"
     },
-  }
+  },
+  contracts_directory: './src/contracts/',
+  contracts_build_directory: './build/contracts/',
 };
