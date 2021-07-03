@@ -39,22 +39,24 @@ contract SimpleSwap {
     emit TokensPurchased(msg.sender, address(token), tokenAmount, rate);
   }
 
-  function sellTokens(uint _amount) public {
+  function sellTokens() public payable {
+    uint tokenAmount = msg.value * rate;
+
     // User can't sell more tokens than they have
-    require(token.balanceOf(msg.sender) >= _amount);
+    require(token.balanceOf(msg.sender) >= tokenAmount);
 
     // Calculate the amount of Ether to redeem
-    uint etherAmount = _amount / rate;
+    uint etherAmount = tokenAmount / rate;
 
     // Require that Swap has enough Ether
     require(address(this).balance >= etherAmount);
 
     // sale: transfer token from seller
-    token.transferFrom(msg.sender, address(this), _amount);
+    token.transferFrom(msg.sender, address(this), tokenAmount);
     // to do: transfer eth to seller
 
     // Emit an event
-    emit TokensSold(msg.sender, address(token), _amount, rate);
+    emit TokensSold(msg.sender, address(token), tokenAmount, rate);
   }
 
 }
