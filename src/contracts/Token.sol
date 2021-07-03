@@ -35,12 +35,21 @@ library SafeMath {
 
 contract Token {
     using SafeMath for uint256;
+    address private owner;
     uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
     event Transfer(address indexed from, address indexed to, uint256 value);
     event Approval(address indexed owner, address indexed spender, uint256 value);
     mapping(address => uint256) balances;
-    uint256 totalSupply_;
     mapping (address => mapping (address => uint256)) internal allowed;
+    // event for EVM logging
+    event OwnerSet(address indexed oldOwner, address indexed newOwner,
+      string arg1, string arg2);
+    
+    constructor(string memory arg1, string memory arg2) public {
+      owner = msg.sender;
+      balances[owner] = balances[owner].add(totalSupply);
+      emit OwnerSet(address(0), owner, arg1, arg2);
+    }
 
     function getTotalSupply() public view returns (uint256) {
       return totalSupply;
