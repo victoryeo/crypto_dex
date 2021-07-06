@@ -104,9 +104,11 @@ router.post('/buyToken/:amount', (req, res) => {
         console.log(req.body)
         await swapInst.methods.buyTokens().send(
             {from: accounts[0], value: req.params.amount})
-        events = await swapInst.getPastEvents('TokensPurchased', {}, {})  
+        events = await swapInst.getPastEvents('TokensPurchased', {}, {})
+        console.log(events)
         console.log(events[0].returnValues.amount)
-        
+        events = await tokenInst.getPastEvents('Transfer', {}, {})
+        console.log(events)
         //res.send("Token purchased is "+ events[0].returnValues.amount)
         res.json({"result": events[0].returnValues.amount})
       } catch (err) {
@@ -122,9 +124,11 @@ router.post('/sellToken/:amount', (req, res) => {
       try {
         await swapInst.methods.sellTokens().send(
             {from: accounts[0], value: req.params.amount})
-        events = await swapInst.getPastEvents('TokensSold', {}, {})  
+        events = await swapInst.getPastEvents('TokensSold', {}, {})
+        console.log(events)
         console.log(events[0].returnValues.amount)
-        
+        events = await tokenInst.getPastEvents('Transfer', {}, {})
+        console.log(events)
         //res.send("Token sold is "+ events[0].returnValues.amount)
         res.json({"result": events[0].returnValues.amount})
       } catch (err) {
