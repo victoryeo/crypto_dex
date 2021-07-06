@@ -9,8 +9,6 @@ class App extends Component {
     super(props)
     this.state = {
       account: '',
-      token: {},
-      ethSwap: {},
       ethBalance: '0',
       tokenBalance: '0',
       loading: true,
@@ -51,6 +49,30 @@ class App extends Component {
     };
 
     fetch(buyUrl, requestOptions)
+      .then(response => response.json())
+      .then(data => { 
+        this.setState({ loading: false, errorFetch: null })
+        console.log(data) 
+      })
+      .catch (err => {
+        console.error('Error ',err.message)
+        this.setState({ loading: false , errorFetch: err.message })
+      })
+  }
+
+  sellTokens = (etherAmount) => {
+    this.setState({ loading: true })
+    // call sell method, pass in amount and account
+    const sellUrl = `http://127.0.0.1:8091/sellToken/${etherAmount}`
+    console.log(sellUrl)
+    console.log(this.state.account)
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ account: this.state.account})
+    };
+
+    fetch(sellUrl, requestOptions)
       .then(response => response.json())
       .then(data => { 
         this.setState({ loading: false, errorFetch: null })
