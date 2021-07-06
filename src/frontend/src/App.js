@@ -13,7 +13,8 @@ class App extends Component {
       ethSwap: {},
       ethBalance: '0',
       tokenBalance: '0',
-      loading: true
+      loading: true,
+      errorFetch: null
     }
     this.web3 = null
   }
@@ -48,11 +49,16 @@ class App extends Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ account: this.state.account})
     };
+
     fetch(buyUrl, requestOptions)
       .then(response => response.json())
       .then(data => { 
-        this.setState({ loading: false })
+        this.setState({ loading: false, errorFetch: null })
         console.log(data) 
+      })
+      .catch (err => {
+        console.error('Error ',err.message)
+        this.setState({ loading: false , errorFetch: err.message })
       })
   }
 
@@ -71,6 +77,12 @@ class App extends Component {
     return (
       <div className="App">
         {content}
+        
+        { this.state.errorFetch && 
+          <div style={{marginTop: 10 + 'em'}}> 
+            {this.state.errorFetch} 
+          </div> }
+
       </div>
     )
   }
