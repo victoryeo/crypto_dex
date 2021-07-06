@@ -70,7 +70,7 @@ class SellForm extends Component {
           <span className="float-left text-muted">Exchange Rate</span>
           <span className="float-right text-muted">100 DApp = 1 ETH</span>
         </div>
-        <button type="submit" className="btn btn-primary btn-block btn-lg">SWAP!</button>
+        <button type="submit" id="btn-sell" className="btn btn-primary btn-block btn-lg">SWAP!</button>
       </form>
     );
   }

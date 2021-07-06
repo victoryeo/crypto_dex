@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+#btn-buy {
+  margin: 30px;
+  font-size: 18px;
+  height: 65px;
+  width: 220px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
+  background: rgb(141,217,252);
+   cursor: pointer;
+ }
+
+ #btn-sell {
+  margin: 30px;
+  font-size: 18px;
+  height: 65px;
+  width: 220px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 1px 1px 0px 2px rgba (0,0,0,0.3);
+  background: rgb(252,217,147);
+   cursor: pointer;
+ } 
