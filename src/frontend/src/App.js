@@ -28,12 +28,32 @@ class App extends Component {
 
     if (this.web3) {
       console.log(this.web3)
-      let accounts = this.web3.eth.getAccounts()
+      let accounts = await this.web3.eth.getAccounts()
+      console.log(accounts)
       this.setState({
 	      loading: false,
 	      account: accounts[0]
       })
     }
+  }
+
+  buyTokens = (etherAmount) => {
+    this.setState({ loading: true })
+    // call buy method, pass in amount and account
+    const buyUrl = `http://127.0.0.1:8091/buyToken/${etherAmount}`
+    console.log(buyUrl)
+    console.log(this.state.account)
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ account: this.state.account})
+    };
+    fetch(buyUrl, requestOptions)
+      .then(response => response.json())
+      .then(data => { 
+        this.setState({ loading: false })
+        console.log(data) 
+      })
   }
 
   render(){
