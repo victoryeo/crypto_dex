@@ -92,7 +92,8 @@ router.get('/getTokenBal', (req, res) => {
     getCoinBalance = async () => {
       let bal0 = await tokenInst.methods.balanceOf(accounts[0]).call()
       console.log(bal0)
-      res.send("Token Balance is " + bal0)
+      //res.send("Token Balance is " + bal0)
+      res.json({"result": bal0})
     }
     getCoinBalance()
 })
