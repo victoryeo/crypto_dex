@@ -99,12 +99,14 @@ router.get('/getTokenBal', (req, res) => {
 
 router.post('/buyToken/:amount', (req, res) => {
     buyToken = async () => {
+      console.log(req.body)
       await swapInst.methods.buyTokens().send(
           {from: accounts[0], value: req.params.amount})
       events = await swapInst.getPastEvents('TokensPurchased', {}, {})  
       console.log(events[0].returnValues.amount)
       
-      res.send("Token purchased is "+ events[0].returnValues.amount)
+      //res.send("Token purchased is "+ events[0].returnValues.amount)
+      res.json({"result": events[0].returnValues.amount})
     }
     buyToken()
 })
