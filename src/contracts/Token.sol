@@ -35,6 +35,8 @@ library SafeMath {
 
 contract Token {
     using SafeMath for uint256;
+    string  public name = "Test Token";
+    string  public symbol = "Test";
     address private owner;
     uint256 public totalSupply = 1000000000000000000000000; // 1 million tokens
     event Transfer(address indexed from, address indexed to, uint256 value);
