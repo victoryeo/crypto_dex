@@ -107,11 +107,11 @@ class App extends Component {
     }
   }
 
-  sellTokens = async (etherAmount) => {
+  sellTokens = async (tokenAmount) => {
     this.setState({ loading: true })
-    console.log(etherAmount)
+    console.log(tokenAmount)
     // call sell method, pass in amount and account
-    const sellUrl = `http://127.0.0.1:8091/sellToken/${etherAmount}`
+    const sellUrl = `http://127.0.0.1:8091/sellToken/${tokenAmount}`
     console.log(sellUrl)
     console.log(this.state.account)
     const requestOptions = {
