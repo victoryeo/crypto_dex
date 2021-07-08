@@ -83,6 +83,7 @@ router.get('/getEthBal', (req, res) => {
     getEthBalance = async() => {
         let bal0 = await web3Inst.eth.getBalance(accounts[0])
         console.log(bal0)
+        console.log(accounts[0])
         res.send("Ether Balance is " + bal0)
     }
     getEthBalance()
@@ -122,8 +123,11 @@ router.post('/buyToken/:amount', (req, res) => {
 router.post('/sellToken/:amount', (req, res) => {
     sellToken = async () => {
       try {
-        await swapInst.methods.sellTokens().send(
-            {from: accounts[0], value: req.params.amount})
+        //await swapInst.methods.sellTokens().send(
+        //    {from: accounts[0], value: req.params.amount})
+        console.log(req.params.amount)
+        await swapInst.methods.sellTokens(req.params.amount).send(
+            {from: accounts[0]})
         events = await swapInst.getPastEvents('TokensSold', {}, {})
         console.log(events)
         console.log(events[0].returnValues.amount)
