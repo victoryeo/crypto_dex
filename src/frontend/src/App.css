@@ -60,3 +60,11 @@
   background: rgb(252,217,147);
    cursor: pointer;
  } 
+
+ #input-balance {
+  font-size: 19px;
+  height: 65px;
+  width: 160px;
+  border-radius: 5px;
+  border: none;
+ } 
