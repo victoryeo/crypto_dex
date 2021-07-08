@@ -14,12 +14,14 @@ class SellForm extends Component {
     return (
       <form className="mb-3" onSubmit={(event) => {
           event.preventDefault()
-          let etherAmount
-          etherAmount = this.state.output.toString()
-          console.log(etherAmount)
-          etherAmount = window.web3.utils.toWei(etherAmount, 'Ether')
-          console.log(etherAmount)
-          this.props.sellTokens(etherAmount)
+          let tokenAmount
+          tokenAmount = this.state.output.toString()
+          console.log(tokenAmount)
+          tokenAmount = window.web3.utils.toWei(tokenAmount, 'Ether')
+          // rate is 1 ether to 100 token
+          tokenAmount = tokenAmount * 100
+          console.log(tokenAmount)
+          this.props.sellTokens(tokenAmount)
         }}>
         <div>
           <label className="float-left"><b>Input</b></label>
