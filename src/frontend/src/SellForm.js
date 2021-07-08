@@ -15,8 +15,10 @@ class SellForm extends Component {
       <form className="mb-3" onSubmit={(event) => {
           event.preventDefault()
           let etherAmount
-          etherAmount = this.input.value.toString()
+          etherAmount = this.state.output.toString()
+          console.log(etherAmount)
           etherAmount = window.web3.utils.toWei(etherAmount, 'Ether')
+          console.log(etherAmount)
           this.props.sellTokens(etherAmount)
         }}>
         <div>
@@ -45,6 +47,7 @@ class SellForm extends Component {
             </div>
           </div>
         </div>
+        <span className="text-muted">&nbsp;</span>
         <div>
           <label className="float-left"><b>Output</b></label>
           <span className="float-right text-muted">
@@ -66,6 +69,7 @@ class SellForm extends Component {
             </div>
           </div>
         </div>
+        <span className="text-muted">&nbsp;</span>
         <div className="mb-5">
           <span className="float-left text-muted">Exchange Rate</span>
           <span className="float-right text-muted">100 DApp = 1 ETH</span>
