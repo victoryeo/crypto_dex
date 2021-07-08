@@ -54,6 +54,10 @@ contract SimpleSwap {
     // sale: transfer token from seller
     token.transferFrom(msg.sender, address(this), tokenAmount);
     // to do: transfer eth to seller
+    // msg.send is the receiver
+    //msg.sender.transfer(etherAmount);
+    (bool success, ) = msg.sender.call.value(etherAmount)("");
+    require(success, "Transfer failed.");
 
     // Emit an event
     emit TokensSold(msg.sender, address(token), tokenAmount, rate);
