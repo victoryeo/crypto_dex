@@ -83,6 +83,7 @@ class App extends Component {
 
     try {
       const response = await fetch(buyUrl, requestOptions)
+      console.log(response)
       const data = await response.json()
       console.log(data)
             
@@ -106,8 +107,9 @@ class App extends Component {
     }
   }
 
-  sellTokens = (etherAmount) => {
+  sellTokens = async (etherAmount) => {
     this.setState({ loading: true })
+    console.log(etherAmount)
     // call sell method, pass in amount and account
     const sellUrl = `http://127.0.0.1:8091/sellToken/${etherAmount}`
     console.log(sellUrl)
@@ -118,16 +120,30 @@ class App extends Component {
       body: JSON.stringify({ account: this.state.account})
     };
 
-    fetch(sellUrl, requestOptions)
-      .then(response => response.json())
-      .then(data => { 
-        this.setState({ loading: false, errorFetch: null })
-        console.log(data) 
+    try {
+      const response = await fetch(sellUrl, requestOptions)
+      console.log(response)
+      const data = await response.json()
+      console.log(data)
+            
+      let tokenBal = await this.getTokenBalance()
+      console.log(tokenBal)
+      if (tokenBal === undefined) {
+        tokenBal = 0
+      }
+
+      let ethBal = await this.web3.eth.getBalance(this.state.account)
+      console.log(ethBal)
+
+      this.setState({ loading: false, errorFetch: null, 
+         tokenBalance: tokenBal.toString(),
+         ethBalance: ethBal.toString()
       })
-      .catch (err => {
-        console.error('Error ',err.message)
-        this.setState({ loading: false , errorFetch: err.message })
-      })
+    }
+    catch (err) {
+      console.error('Error ',err.message)
+      this.setState({ loading: false , errorFetch: err.message })
+    }
   }
 
   render(){
