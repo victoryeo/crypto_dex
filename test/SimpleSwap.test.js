@@ -2,9 +2,8 @@ const Token = artifacts.require('Token')
 const SimpleSwap = artifacts.require('SimpleSwap')
 
 require('chai')
-//require('chai-as-promised')
-const { should } = require('chai');
-should()
+  .use(require('chai-as-promised'))
+  .should()
 
 function tokens(n) {
   console.log(n)
