@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.21 <=0.8.7;
+pragma solidity ^0.8.17;
 
 import "./Token.sol";
 
@@ -21,7 +21,7 @@ contract SimpleSwap {
     uint rate
   );
 
-  constructor(Token _token) public {
+  constructor(Token _token) {
     token = _token;
   }
 
@@ -59,7 +59,8 @@ contract SimpleSwap {
 
     // msg.send is the receiver
     //msg.sender.transfer(etherAmount);
-    (bool success, ) = msg.sender.call.value(etherAmount)("");
+    //(bool success, ) = msg.sender.call.value(etherAmount)("");
+    (bool success, ) = msg.sender.call{value:etherAmount}("");
     require(success, "Transfer failed.");
 
     // Emit an event

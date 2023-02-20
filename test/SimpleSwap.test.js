@@ -16,7 +16,7 @@ contract('SimpleSwap', ([deployer, investor]) => {
     let token, simpleSwap
 
     before(async () => {
-        token = await Token.new("hello","world")
+        token = await Token.new("Test Token","world")
         simpleSwap = await SimpleSwap.new(token.address)
         // Transfer all tokens to simpleSwap (1 million)
         await token.transfer(simpleSwap.address, tokens('1000000'))
