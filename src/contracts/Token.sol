@@ -21,13 +21,11 @@ contract Token is ERC20 {
     
     constructor(
       string memory name,
-      string memory symbol,
-      string memory arg1, 
-      string memory arg2
+      string memory symbol
     ) ERC20(name, symbol) {
       owner = msg.sender;
       balances[owner] = balances[owner] + (_totalSupply);
-      emit OwnerSet(address(0), owner, arg1, arg2);
+      emit OwnerSet(address(0), owner, name, symbol);
     }
 
     function totalSupply() public view virtual override returns (uint256) {
